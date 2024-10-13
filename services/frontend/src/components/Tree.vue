@@ -1,9 +1,10 @@
 <template>
     <div>
-        <a-button type="primary" @click="showModal">Diagrama</a-button>
-        <a-modal v-model:open="open"  width="1325px"  title="Basic Modal">
-            <ejs-diagram id="diagram" :width="width" :height="height" :layout="layout" :dataSourceSettings="dataSourceSettings"
-                :getNodeDefaults="getNodeDefaults" :getConnectorDefaults="getConnectorDefaults">
+        <a-button block @click="showModal">Diagrama</a-button>
+        <a-modal v-model:open="open" width="1325px" title="Basic Modal">
+            <ejs-diagram id="diagram" :width="width" :height="height" :layout="layout"
+                :dataSourceSettings="dataSourceSettings" :getNodeDefaults="getNodeDefaults"
+                :getConnectorDefaults="getConnectorDefaults">
             </ejs-diagram>
         </a-modal>
     </div>
@@ -53,19 +54,12 @@ const layout = {
 const dataSourceSettings = ref({
     id: "id",
     parentId: "parent",
-    dataManager: new DataManager(smartCarStore.solution),
+    dataManager: new DataManager(smartCarStore.solution?.tree),
     doBinding: (nodeModel, localData) => {
         nodeModel.annotations = [
             {
-                content: localData.position.row,
-                offset: { x: 0.5, y: 0.2 },
-                style: { color: "white" },
-            },
-            {
-                content: localData.position.col,
-                offset: { x: 0.5, y: 0.7 },
-                style: { color: "white" },
-            },
+                content: `(${localData.position.row},${localData.position.col}) - C: ${localData.cost}`,
+            }
         ];
         nodeModel.style = { fill: "#6BA5D7", strokeWidth: 0 };
     },
@@ -74,7 +68,7 @@ const dataSourceSettings = ref({
 watch(
     () => smartCarStore.solution,
     (newSolution) => {
-        dataSourceSettings.value.dataManager = new DataManager(newSolution);
+        dataSourceSettings.value.dataManager = new DataManager(newSolution.tree);
     },
     { immediate: true }
 );
@@ -84,10 +78,10 @@ provide('diagram', diagram);
 </script>
 
 <style>
-    @import "@syncfusion/ej2-base/styles/material.css";
-    @import "@syncfusion/ej2-navigations/styles/material.css";
-    @import "@syncfusion/ej2-buttons/styles/material.css";
-    @import "@syncfusion/ej2-inputs/styles/material.css";
-    @import "@syncfusion/ej2-popups/styles/material.css";
-    @import "@syncfusion/ej2-vue-diagrams/styles/material.css";
+@import "@syncfusion/ej2-base/styles/material.css";
+@import "@syncfusion/ej2-navigations/styles/material.css";
+@import "@syncfusion/ej2-buttons/styles/material.css";
+@import "@syncfusion/ej2-inputs/styles/material.css";
+@import "@syncfusion/ej2-popups/styles/material.css";
+@import "@syncfusion/ej2-vue-diagrams/styles/material.css";
 </style>

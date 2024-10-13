@@ -27,17 +27,17 @@ async def ubs(data: Data):
     return uninformed_breadth_search.evaluate(data.matrix, data.operators)
 
 @app.post("/" + str(Algorithms.UNINFORMED_UNIFORM_COST))
-async def ubs(data: Data):
+async def uuc(data: Data):
     return uninformed_uniform_cost.evaluate(data.matrix, data.operators)
 
 @app.post("/" + str(Algorithms.UNINFORMED_DEPTH_AVOIDING_CYCLES))
-async def ubs(data: Data):
+async def udac(data: Data):
     return uninformed_depth_avoiding_cycles.evaluate(data.matrix, data.operators)
 
 @app.post("/" + str(Algorithms.INFORMED_AVARA))
-async def ubs(data: Data):
+async def i_avara(data: Data):
     return informed_avara.evaluate(data.matrix, data.operators)
 
 @app.post("/" + str(Algorithms.INFORMED_A))
-async def ubs(data: Data):
+async def i_a(data: Data):
     return informed_a.evaluate(data.matrix, data.operators)
