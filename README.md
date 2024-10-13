@@ -10,7 +10,7 @@ presenta una abstracción de una ciudad inteligente.
 
 ![City](./imgs/city.png)
 
-## Ejecución?
+## Ejecución
 
 Crear las imágenes y ejecutar los contenedores:
 
@@ -19,3 +19,17 @@ $ docker-compose up -d --build
 ```
 
 Asegurate de que [http://localhost:5000](http://localhost:5000) y [http://localhost:8080](http://localhost:8080) esten funcionando apropiadamente.
+
+## Uso
+
+Carga tu ciuidad:
+
+![Upload](./imgs/upload.png)
+
+Selecciona el algoritmo:
+
+![Select](./imgs/select.png)
+
+Evalúa la solución:
+
+![Evaluate](./imgs/evaluate.png)
