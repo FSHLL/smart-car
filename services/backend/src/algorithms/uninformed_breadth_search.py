@@ -42,7 +42,7 @@ def evaluate(matrix, operators):
 
         if vehicle_position.key() in visited_positions:
             visited_positions[vehicle_position.key()] += 1
-            if visited_positions[vehicle_position.key()] > 1000:
+            if visited_positions[vehicle_position.key()] > 1200:
                 return {
                     'steps': helpers.get_solution(vehicle_node, tree),
                     'expandedNodes': node_id,

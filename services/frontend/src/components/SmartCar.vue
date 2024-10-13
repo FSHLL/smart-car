@@ -95,10 +95,8 @@ const printSolution = () => {
       const currentRepresentation = smartCarStore.matrix[node.row][node.col]
       smartCarStore.matrix[node.row][node.col] = representations.vehicle
       setTimeout(() => {
-        if (index+1 !== smartCarStore.solution.steps.length) {
-          smartCarStore.matrix[node.row][node.col] = currentRepresentation
-        }
-      }, 100 * index);
+        smartCarStore.matrix[node.row][node.col] = currentRepresentation
+      }, 250);
     }, 500 * index);
   });
 }
