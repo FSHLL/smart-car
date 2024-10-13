@@ -4,6 +4,7 @@ from pydantic import BaseModel
 from src.constants import Algorithms
 import src.algorithms.uninformed_breadth_search as uninformed_breadth_search
 import src.algorithms.uninformed_uniform_cost as uninformed_uniform_cost
+import src.algorithms.uninformed_depth_avoiding_cycles as uninformed_depth_avoiding_cycles
 
 class Data(BaseModel):
     matrix: str
@@ -26,3 +27,7 @@ async def ubs(data: Data):
 @app.post("/" + str(Algorithms.UNINFORMED_UNIFORM_COST))
 async def ubs(data: Data):
     return uninformed_uniform_cost.evaluate(data.matrix, data.operators)
+
+@app.post("/" + str(Algorithms.UNINFORMED_DEPTH_AVOIDING_CYCLES))
+async def ubs(data: Data):
+    return uninformed_depth_avoiding_cycles.evaluate(data.matrix, data.operators)
