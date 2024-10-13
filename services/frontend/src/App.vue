@@ -11,7 +11,7 @@
             >
             <a-button>
               <upload-outlined></upload-outlined>
-              Upload World
+              Cargar ciudad
             </a-button>
       </a-upload>
       </div>
