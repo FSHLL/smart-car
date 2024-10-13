@@ -1,5 +1,5 @@
 import src.helpers as helpers
-from src.constants import Representations, RepresentationsCost, Operators
+from src.constants import Representations, RepresentationsCost
 from src.node import Node
 import time
 
@@ -48,6 +48,7 @@ def evaluate(matrix, operators):
                 return {
                     'steps': [],
                     'expandedNodes': node_id,
+                    'cost': None,
                     'depth': depth,
                     'time': ((time.time()-start))
                 }
@@ -73,6 +74,7 @@ def evaluate(matrix, operators):
     return {
         'steps': helpers.get_solution(solution_node, tree),
         'expandedNodes': node_id,
+        'cost': solution_node.cost,
         'depth': depth,
         'time': ((end-start))
     }

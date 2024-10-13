@@ -23,19 +23,23 @@
       </a-col>
       <a-col :span="12">
         <h2>{{ getNameByAlgorithm(smartCarStore.algorithm[0]) }}</h2>
-        <a-button block v-if="smartCarStore.matrixString" @click="evaluate">Evaluar</a-button>
+        <a-button block type="primary" v-if="smartCarStore.matrixString" @click="evaluate">Evaluar</a-button>
+        <tree v-if="smartCarStore.solution?.tree"></tree>
         <a-divider></a-divider>
         <a-alert v-if="!spinning && smartCarStore.solution.steps?.length === 0" message="Ciclo detectado intenta con otros operadores"  type="error"></a-alert>
         <a-descriptions v-if="smartCarStore.solution" title="Resultados">
           <a-row>
-            <a-col :span="8">
+            <a-col :span="getSpan">
               <a-statistic title="Nodos expandidos" :value="smartCarStore.solution.expandedNodes" style="margin-right: 50px" />
             </a-col>
-            <a-col :span="8">
+            <a-col :span="getSpan">
               <a-statistic title="Profundidad del arbol" :value="smartCarStore.solution.depth" style="margin-right: 50px" />
             </a-col>
-            <a-col :span="8">
+            <a-col :span="getSpan">
               <a-statistic suffix="seg" title="Tiempo de computo" :value="smartCarStore.solution.time" :precision="2" style="margin-right: 50px" />
+            </a-col>
+            <a-col v-if="smartCarStore.solution?.cost" :span="getSpan">
+              <a-statistic title="Costo" :value="smartCarStore.solution.cost" style="margin-right: 50px" />
             </a-col>
           </a-row>
         </a-descriptions>
@@ -50,16 +54,17 @@ import { getAllOperators } from '@/constants/operators';
 import { getColorByRepresentation, representations } from '@/constants/representations';
 import { useSmartCarStore } from '@/stores/smartCarStore';
 import { message } from 'ant-design-vue';
-// import Tree from './Tree.vue';
+import Tree from './Tree.vue';
 import axios from 'axios';
-import { ref } from 'vue';
+import { computed, ref } from 'vue';
 
 const spinning = ref(false);
 const operators = ref(getAllOperators())
 
-
 const options = getAllOperators().map(op => ({value: op}))
 const smartCarStore = useSmartCarStore()
+
+const getSpan = computed(() => smartCarStore.solution?.cost ? 6 : 8)
 
 const evaluate = async () => {
   try {

@@ -1,5 +1,5 @@
 import src.helpers as helpers
-from src.constants import Representations, Operators
+from src.constants import Representations
 from src.node import Node
 import time
 

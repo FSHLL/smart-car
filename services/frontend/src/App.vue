@@ -58,7 +58,7 @@
 </template>
 
 <script setup>
-import { ref } from 'vue';
+import { ref, watch } from 'vue';
 import { useSmartCarStore } from './stores/smartCarStore';
 import SmartCar from './components/SmartCar.vue';
 import {
@@ -75,10 +75,7 @@ const beforeFileUpload = (file) => {
 
   reader.onload = (e) => {
     const content = e.target.result;
-    matrix.value = content.split('\n').map(line => line.split(' ').map(Number));
-    matrix.value.pop()
-    smartCarStore.matrix = matrix.value
-    smartCarStore.matrixString = content
+    setMatrixContent(content)
   };
 
   if (file) {
@@ -87,6 +84,21 @@ const beforeFileUpload = (file) => {
 
   return false;
 };
+
+const setMatrixContent = (content) => {
+  matrix.value = content.split('\n').map(line => line.split(' ').map(Number));
+  matrix.value.pop()
+  smartCarStore.matrix = matrix.value
+  smartCarStore.matrixString = content
+}
+
+watch(
+    () => smartCarStore.algorithm,
+    () => {
+      smartCarStore.solution = {}
+    },
+    { immediate: true }
+);
 </script>
 
 
