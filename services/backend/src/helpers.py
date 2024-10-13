@@ -60,3 +60,6 @@ def already_visited_in_branch(node, nodes, destination):
         if position.row == destination.row and position.col == destination.col:
             return True
     return False
+
+def manhattan_distance(position, destination):
+    return abs(position.row - destination.row) + abs(position.col - destination.col)
