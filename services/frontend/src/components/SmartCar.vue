@@ -26,7 +26,9 @@
         <a-button block type="primary" v-if="smartCarStore.matrixString" @click="evaluate">Evaluar</a-button>
         <tree v-if="smartCarStore.solution?.tree"></tree>
         <a-divider></a-divider>
-        <a-alert v-if="!spinning && smartCarStore.solution.steps?.length === 0" message="Ciclo detectado intenta con otros operadores"  type="error"></a-alert>
+        <a-alert v-if="!spinning && smartCarStore.solution.cycle" message="Ciclo detectado intenta con otros operadores"  type="error"></a-alert>
+        <a-alert v-if="!spinning && smartCarStore.solution.steps?.length === 0" message="Sin solución intenta con otros operadores" type="warning"></a-alert>
+        <a-divider></a-divider>
         <a-descriptions v-if="smartCarStore.solution" title="Resultados">
           <a-row>
             <a-col :span="getSpan">

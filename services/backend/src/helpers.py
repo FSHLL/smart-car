@@ -35,7 +35,7 @@ def can_apply_operator(matrix, position, operator):
 
 def get_solution(solution_node, nodes):
         if not solution_node:
-            return None
+            return []
 
         chain = []
         current_id = solution_node.parent
@@ -53,6 +53,9 @@ def get_solution(solution_node, nodes):
 
 def get_parent_node(s_node, nodes):
     return next((node for node in nodes if node.id == s_node.parent), None)
+
+def get_max_depth(nodes):
+    return max(node.depth for node in nodes) if nodes else None
 
 def already_visited_in_branch(node, nodes, destination):
     solution = get_solution(node, nodes)

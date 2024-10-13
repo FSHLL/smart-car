@@ -15,7 +15,6 @@ def evaluate(matrix, operators):
 
     tree = list()
     tail = list()
-    depth = 0
     node_id = 1
 
     tail.append(Node(0, vehicle))
@@ -46,11 +45,12 @@ def evaluate(matrix, operators):
             visited_positions[vehicle_position.key()] += 1
             if visited_positions[vehicle_position.key()] >= 1000:
                 return {
-                    'steps': [],
+                    'steps': helpers.get_solution(vehicle_node, tree),
                     'expandedNodes': node_id,
                     'cost': None,
-                    'depth': depth,
-                    'time': ((time.time()-start))
+                    'depth': helpers.get_max_depth(tree),
+                    'time': ((time.time()-start)),
+                    'cycle': True,
                 }
         else:
             visited_positions[vehicle_position.key()] = 1
@@ -62,19 +62,18 @@ def evaluate(matrix, operators):
 
                 if can_back or not parent_node or not new_vehicle_position.is_equal_to(parent_node.position):
                     cost = RepresentationsCost.get_cost(matrix, new_vehicle_position)
-                    tail.append(Node(node_id, new_vehicle_position, vehicle_node.id, cost=cost+vehicle_node.cost))
-                    tree.append(Node(node_id, new_vehicle_position, vehicle_node.id, cost=cost+vehicle_node.cost))
+                    tail.append(Node(node_id, new_vehicle_position, vehicle_node.id, cost+vehicle_node.cost, vehicle_node.depth+1))
+                    tree.append(Node(node_id, new_vehicle_position, vehicle_node.id, cost+vehicle_node.cost, vehicle_node.depth+1))
                     node_id += 1
-                    can_back = False
-
-        depth += 1
+                    if can_back and new_vehicle_position.is_equal_to(parent_node.position):
+                        can_back = False
 
     end = time.time()
 
     return {
         'steps': helpers.get_solution(solution_node, tree),
         'expandedNodes': node_id,
-        'cost': solution_node.cost,
-        'depth': depth,
+        'cost': solution_node.cost if solution_node else None,
+        'depth': helpers.get_max_depth(tree),
         'time': ((end-start))
     }

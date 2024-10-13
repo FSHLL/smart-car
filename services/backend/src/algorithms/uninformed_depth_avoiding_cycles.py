@@ -14,7 +14,6 @@ def evaluate(matrix, operators):
 
     tree = list()
     tail = list()
-    depth = 0
     node_id = 1
 
     tail.append(Node(0, vehicle))
@@ -40,16 +39,15 @@ def evaluate(matrix, operators):
             if helpers.can_apply_operator(matrix, vehicle_position, operator):
                 new_vehicle_position = helpers.apply_operator(vehicle_position, operator)
                 if not helpers.already_visited_in_branch(vehicle_node, tree, new_vehicle_position):
-                    tail.append(Node(node_id, new_vehicle_position, vehicle_node.id))
-                    tree.append(Node(node_id, new_vehicle_position, vehicle_node.id))
+                    tail.append(Node(node_id, new_vehicle_position, vehicle_node.id, depth=vehicle_node.depth+1))
+                    tree.append(Node(node_id, new_vehicle_position, vehicle_node.id, depth=vehicle_node.depth+1))
                     node_id += 1
-        depth += 1
 
     end = time.time()
 
     return {
-        'steps': helpers.get_solution(solution_node, tree) or [],
+        'steps': helpers.get_solution(solution_node, tree),
         'expandedNodes': node_id,
-        'depth': depth,
+        'depth': helpers.get_max_depth(tree),
         'time': ((end-start))
     }
