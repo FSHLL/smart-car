@@ -10,6 +10,10 @@ presenta una abstracción de una ciudad inteligente.
 
 ![City](./imgs/city.png)
 
+## Requisitos
+
+- [Docker Compose](https://docs.docker.com/compose/install/)
+
 ## Ejecución
 
 Crear las imágenes y ejecutar los contenedores:
@@ -24,11 +28,17 @@ Asegurate de que [http://localhost:5000](http://localhost:5000) y [http://localh
 
 Carga tu ciuidad:
 
+**Algunos ejemplos de ciudades en la carpeta [test_files](https://github.com/FSHLL/smart-car/tree/main/test_files)**
+
 ![Upload](./imgs/upload.png)
 
 Selecciona el algoritmo:
 
 ![Select](./imgs/select.png)
+
+Ajusta el orden de los operadores si lo deseas:
+
+![Operators](./imgs/operators.png)
 
 Evalúa la solución:
 
