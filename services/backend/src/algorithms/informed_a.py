@@ -61,11 +61,11 @@ def evaluate(matrix, operators):
                 parent_node = helpers.get_parent_node(vehicle_node, tree)
 
                 if can_back or not parent_node or not new_vehicle_position.is_equal_to(parent_node.position):
-                    if can_back:
-                        cost = helpers.manhattan_distance(new_vehicle_position, destination)
+                    cost = RepresentationsCost.get_cost(matrix, new_vehicle_position)
+                    if not can_back:
+                        cost += helpers.manhattan_distance(new_vehicle_position, destination)
                     else:
-                        cost = helpers.manhattan_distance(new_vehicle_position, passenger) + helpers.manhattan_distance(passenger, destination)
-                    cost += RepresentationsCost.get_cost(matrix, new_vehicle_position)
+                        cost += helpers.manhattan_distance(new_vehicle_position, passenger) + helpers.manhattan_distance(passenger, destination)
                     tail.append(Node(node_id, new_vehicle_position, vehicle_node.id, cost+vehicle_node.cost, vehicle_node.depth+1))
                     tree.append(Node(node_id, new_vehicle_position, vehicle_node.id, cost+vehicle_node.cost, vehicle_node.depth+1))
                     node_id += 1

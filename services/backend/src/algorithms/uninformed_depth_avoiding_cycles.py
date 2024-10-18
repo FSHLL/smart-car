@@ -38,7 +38,7 @@ def evaluate(matrix, operators):
         for operator in operators:
             if helpers.can_apply_operator(matrix, vehicle_position, operator):
                 new_vehicle_position = helpers.apply_operator(vehicle_position, operator)
-                if not helpers.already_visited_in_branch(vehicle_node, tree, new_vehicle_position):
+                if not helpers.already_visited_in_branch(vehicle_node, tail, new_vehicle_position):
                     tail.append(Node(node_id, new_vehicle_position, vehicle_node.id, depth=vehicle_node.depth+1))
                     tree.append(Node(node_id, new_vehicle_position, vehicle_node.id, depth=vehicle_node.depth+1))
                     node_id += 1
